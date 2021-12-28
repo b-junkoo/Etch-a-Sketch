@@ -29,6 +29,11 @@ clear.addEventListener("mousedown", () => {
 });
 
 let color = document.getElementById('color');
+color.addEventListener("mousedown", () => {
+    grid.addEventListener("mouseover", e => {
+        e.target.style.backgroundColor = "orange";
+    }, false)
+})
 
 let eraser = document.getElementById('eraser');
 eraser.addEventListener("mousedown", () => {
