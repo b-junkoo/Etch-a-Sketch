@@ -31,3 +31,8 @@ clear.addEventListener("mousedown", () => {
 let color = document.getElementById('color');
 
 let eraser = document.getElementById('eraser');
+eraser.addEventListener("mousedown", () => {
+    grid.addEventListener("mouseover", e => {
+        e.target.style.backgroundColor = "white";
+    }, false)
+})
