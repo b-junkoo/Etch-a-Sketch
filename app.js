@@ -1,6 +1,7 @@
 document.body.onload = createGrid;
 let gridLength = 16;
 
+// Grid Creator
 function createGrid () {
     for (let i=1; i<=gridLength*gridLength; i++) {
         const newDiv = document.createElement("div");
@@ -13,41 +14,52 @@ function createGrid () {
     }
 }
 
-let grid = document.getElementById("grid");
-
 let toggle = true;
+let colorButton = true;
+
+// Helper Functions
 function colorIn(e) {
     e.target.style.backgroundColor="orange"
 }
 
+function erase(e) {
+    e.target.style.backgroundColor="";
+}
+
+// Event Listeners
+let grid = document.getElementById("grid");
 grid.addEventListener("mousedown", () => {
     toggle = !toggle;
-    grid.addEventListener("mouseover", colorIn ,false);
+
+    // colorButton will only be false if the "Eraser" button is clicked
+    if (colorButton) {
+        grid.addEventListener("mouseover", colorIn ,false);
+    } else {
+        grid.addEventListener("mouseover", erase, false)
+    }
+    
+    // Makes erasing and coloring toggleable via mouse click
     if (toggle) {
         grid.removeEventListener("mouseover", colorIn, false);
+        grid.removeEventListener("mouseover", erase, false);
     }
 }, false)
 
-
+// Loops through every grid block and sets their background color to ""
 let clear = document.getElementById('clear');
 clear.addEventListener("mousedown", () => {
     let blocks = document.querySelectorAll('div.block');
-    console.log(blocks);
     blocks.forEach((block) => {
-        block.style.backgroundColor = "white";
+        block.style.backgroundColor = "";
     })
 });
-
+ 
 let color = document.getElementById('color');
 color.addEventListener("mousedown", () => {
-    grid.addEventListener("mouseover", e => {
-        e.target.style.backgroundColor = "orange";
-    }, false)
+    colorButton = true;
 })
 
 let eraser = document.getElementById('eraser');
 eraser.addEventListener("mousedown", () => {
-    grid.addEventListener("mouseover", e => {
-        e.target.style.backgroundColor = "white";
-    }, false)
+    colorButton = false;
 })
