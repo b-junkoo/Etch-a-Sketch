@@ -15,9 +15,19 @@ function createGrid () {
 
 let grid = document.getElementById("grid");
 
-grid.addEventListener("mouseover", e => {
-    e.target.style.backgroundColor = "orange";
+let toggle = true;
+function colorIn(e) {
+    e.target.style.backgroundColor="orange"
+}
+
+grid.addEventListener("mousedown", () => {
+    toggle = !toggle;
+    grid.addEventListener("mouseover", colorIn ,false);
+    if (toggle) {
+        grid.removeEventListener("mouseover", colorIn, false);
+    }
 }, false)
+
 
 let clear = document.getElementById('clear');
 clear.addEventListener("mousedown", () => {
